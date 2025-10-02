@@ -4,11 +4,11 @@
     {
         public long Id { get; set; }
 
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
-        public string NomeHeroi { get; set; }
+        public string NomeHeroi { get; set; } = string.Empty;
 
-        public List<string> SuperPoderes { get; set; }
+        public List<string> SuperPoderes { get; set; } = [];
 
         public DateTime DataDeNascimento { get; set; }
 
