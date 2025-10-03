@@ -105,19 +105,19 @@ const Home: React.FC = () => {
                                     placeholder="Ex: 185"
                                 />
                             </div>
-                        <div>
-                            <label htmlFor="peso" className="block text-sm font-bold mb-2">Peso (kg)</label>
-                            <CurrencyInput
-                                id="peso"
-                                name="peso"
-                                className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]"
-                                value={formData.peso}
-                                onValueChange={handleValueChange}
-                                allowNegativeValue={false}
-                                placeholder="Ex: 90,50"
-                                prefix=""
-                            />
-                        </div>
+                            <div>
+                                <label htmlFor="peso" className="block text-sm font-bold mb-2">Peso (kg)</label>
+                                <CurrencyInput
+                                    id="peso"
+                                    name="peso"
+                                    className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]"
+                                    value={formData.peso} 
+                                    onValueChange={handleValueChange}
+                                    allowNegativeValue={false}
+                                    groupSeparator="."
+                                    placeholder="Ex: 25"
+                                />
+                            </div>
 
                         </div>
 
