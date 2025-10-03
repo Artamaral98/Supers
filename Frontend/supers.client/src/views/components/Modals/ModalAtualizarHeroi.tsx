@@ -17,19 +17,24 @@ const ModalAtualizarHeroi: React.FC<ModalProps> = ({ isOpen, onClose, onUpdate, 
     const [formData, setFormData] = useState<NovoHeroi>({
         nome: '',
         nomeHeroi: '',
-        dataNascimento: '',
-        altura: 0,
-        peso: 0,
+        dataNascimento: '', 
+        altura: '',
+        peso: '',
         superPoderes: []
     });
 
 
     useEffect(() => {
-        if (heroi && poderes.length > 0) {
-            const dataFormatada = heroi.dataNascimento?.split('T')[0] ?? '';
-            const idsDosPoderesAtuais = poderes
+        if (heroi) {
+            let dataFormatada = ''; 
+            
+            if (heroi.dataNascimento && !heroi.dataNascimento.startsWith('0001-01-01')) {
+                dataFormatada = heroi.dataNascimento.split('T')[0];
+            }
+
+            const idsDosPoderesAtuais = poderes.length > 0 ? poderes
                 .filter(poder => heroi.superPoderes.includes(poder.nome))
-                .map(poder => poder.id);
+                .map(poder => poder.id) : [];
 
             setFormData({
                 nome: heroi.nome,
@@ -40,7 +45,7 @@ const ModalAtualizarHeroi: React.FC<ModalProps> = ({ isOpen, onClose, onUpdate, 
                 superPoderes: idsDosPoderesAtuais
             });
         }
-    }, [heroi, poderes]);
+    }, [heroi, poderes, isOpen]); 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

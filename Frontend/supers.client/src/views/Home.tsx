@@ -6,13 +6,13 @@ import { useSuperpoderes } from "../services/hooks/useSuperpoderes";
 import { useSuperHerois } from "../services/hooks/useSuperHerois";   
 import type { NovoHeroi } from "../services/types/NovoHeroi";
 import { getTodayDateString } from "../utils/dateUtils";
+import CurrencyInput from "react-currency-input-field";
 
 const Home: React.FC = () => {
     const { inputRef } = useFocus();
     const { poderes, isLoading: isLoadingPoderes } = useSuperpoderes();
     const { criarHeroi, isLoading: isCreatingHeroi } = useSuperHerois(); 
 
-    // 2. Estado para o formulário
     const [formData, setFormData] = useState<NovoHeroi>({
         nome: '',
         nomeHeroi: '',
@@ -58,6 +58,15 @@ const Home: React.FC = () => {
         }
     };
 
+    const handleValueChange = (value: string | undefined, name: string | undefined) => {
+        if (name) {
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value || '',
+            }));
+        }
+    };
+
     return (
         <div className="flex min-h-screen">
             <Sidebar />
@@ -71,7 +80,7 @@ const Home: React.FC = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label htmlFor="nome" className="block text-sm font-bold mb-2">Nome</label>
-                                <input ref={inputRef} type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]" />
+                                <input ref={inputRef} type="text" id="nome" name="nome" maxLength={120} value={formData.nome} onChange={handleChange} className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]" />
                             </div>
                             <div>
                                 <label htmlFor="nomeHeroi" className="block text-sm font-bold mb-2">Nome de Herói</label>
@@ -83,12 +92,33 @@ const Home: React.FC = () => {
                             </div>
                             <div>
                                 <label htmlFor="altura" className="block text-sm font-bold mb-2">Altura (cm)</label>
-                                <input type="number" step="0.01" id="altura" name="altura" value={formData.altura} onChange={handleChange} className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]" />
+                                <CurrencyInput
+                                    id="altura"
+                                    name="altura"
+                                    className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]"
+                                    value={formData.altura}
+                                    onValueChange={handleValueChange}
+                                    allowNegativeValue={false}
+                                    decimalScale={2} 
+                                    decimalSeparator="."
+                                    groupSeparator=","
+                                    placeholder="Ex: 185"
+                                />
                             </div>
-                             <div>
-                                <label htmlFor="peso" className="block text-sm font-bold mb-2">Peso (kg)</label>
-                                <input type="number" step="0.1" id="peso" name="peso" value={formData.peso} onChange={handleChange} className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]" />
-                            </div>
+                        <div>
+                            <label htmlFor="peso" className="block text-sm font-bold mb-2">Peso (kg)</label>
+                            <CurrencyInput
+                                id="peso"
+                                name="peso"
+                                className="w-full px-3 py-2 bg-gray-100 border-none rounded-md focus:outline-none focus:ring-2 focus:ring-[#DD4B25]"
+                                value={formData.peso}
+                                onValueChange={handleValueChange}
+                                allowNegativeValue={false}
+                                placeholder="Ex: 90,50"
+                                prefix=""
+                            />
+                        </div>
+
                         </div>
 
                         <div>
