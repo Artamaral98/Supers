@@ -6,6 +6,17 @@ using Supers.Infrastructure.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowViteDevServer",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:62794")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -27,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowViteDevServer");
 
 app.UseAuthorization();
 
