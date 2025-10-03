@@ -97,6 +97,15 @@ namespace Supers.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Já existe um heroi com este nome..
+        /// </summary>
+        public static string NOME_HEROI_CADASTRADO {
+            get {
+                return ResourceManager.GetString("NOME_HEROI_CADASTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O campo &quot;Nome do herói&quot; deve conter até 25 caracteres.
         /// </summary>
         public static string NOME_HEROI_TAMANHO_MAXIMO {

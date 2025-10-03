@@ -129,6 +129,9 @@
   <data name="NOME_CARACTERES_ESPECIAIS" xml:space="preserve">
     <value>Não são permitidos caracteres especiais</value>
   </data>
+  <data name="NOME_HEROI_CADASTRADO" xml:space="preserve">
+    <value>Já existe um heroi com este nome.</value>
+  </data>
   <data name="NOME_HEROI_TAMANHO_MAXIMO" xml:space="preserve">
     <value>O campo "Nome do herói" deve conter até 25 caracteres</value>
   </data>

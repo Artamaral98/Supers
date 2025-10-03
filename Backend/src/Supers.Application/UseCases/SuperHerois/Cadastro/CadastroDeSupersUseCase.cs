@@ -1,17 +1,17 @@
-﻿using Supers.Communication.Requests;
+﻿using AutoMapper;
+using Supers.Communication.Requests;
 using Supers.Communication.Responses;
+using Supers.Domain.Repositorios;
 using Supers.Exceptions;
 
 namespace Supers.Application.UseCases.SuperHerois.Cadastro
 {
     public class CadastroDeSupersUseCase
     {
+        private readonly ISuperHeroiRepository _repository;
         public async Task<CadastroSuperResponse> Executar (CadastroSuperRequest request)
         {
             Validar(request);
-            //Validar a request.
-
-            //Mapear a request em uma entidade.
 
             //Salvar no DB
 
@@ -23,10 +23,17 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
             return resposta;
         }
 
-        private void Validar(CadastroSuperRequest request)
+        private async Task Validar(CadastroSuperRequest request)
         {
             var validador = new CadastroDeSupersValidacao();
             var resultado = validador.Validate(request);
+
+            var heroiCadastrado = await _repository.ExisteHeroiCadastradoPorNomeHeroi(request.NomeHeroi);
+
+            if (heroiCadastrado)
+            {
+                resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, Mensagens.NOME_HEROI_CADASTRADO));
+            }
 
             if (resultado.IsValid == false)
             {
