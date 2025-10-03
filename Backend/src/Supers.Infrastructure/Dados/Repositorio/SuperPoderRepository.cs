@@ -12,5 +12,10 @@ namespace Supers.Infrastructure.Dados.Repositorio
 
         public async Task<IList<SuperPoderes>> ObterTodosSuperPoderes() => await _dbContext.SuperPoderes.AsNoTracking().ToListAsync();
 
+        public async Task<int> PoderExisteNoBanco(List<int> poderesIds)
+        {
+            return await _dbContext.SuperPoderes.CountAsync(poder => poderesIds.Contains(poder.Id));
+        }
+
     }
 }

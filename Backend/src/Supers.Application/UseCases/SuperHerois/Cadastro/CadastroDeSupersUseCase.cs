@@ -9,15 +9,17 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
 {
     public class CadastroDeSupersUseCase : ICadastroDeSupersUseCase
     {
-        private readonly ISuperHeroiRepository _repository;
+        private readonly ISuperHeroiRepository _superHeroiRepository;
+        private readonly ISuperPoderRepository _superPoderRepository;
         private readonly IMapper _mapper;
         private readonly IUnityOfWork _unityOfWork;
 
-        public CadastroDeSupersUseCase(ISuperHeroiRepository repository, IMapper mapper, IUnityOfWork unityOfWork)
+        public CadastroDeSupersUseCase(ISuperHeroiRepository repository, IMapper mapper, IUnityOfWork unityOfWork, ISuperPoderRepository superPoderRepsitory)
         {
-            _repository = repository;
+            _superHeroiRepository = repository;
             _mapper = mapper;
             _unityOfWork = unityOfWork;
+            _superPoderRepository = superPoderRepsitory;
         }
         public async Task<CadastroSuperResponse> Executar (CadastroSuperRequest request)
         {
@@ -25,9 +27,9 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
 
             var heroi = _mapper.Map<SuperHeroi>(request);
 
-            if (request.SuperPoderesIds.Any())
+            if (request.SuperPoderes.Any())
             {
-                foreach (var poderId in request.SuperPoderesIds)
+                foreach (var poderId in request.SuperPoderes)
                 {
                     heroi.HeroisSuperPoderes.Add(new HeroiSuperPoder
                     {
@@ -36,7 +38,7 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
                 }
             }
 
-            await _repository.CadastrarHeroi(heroi);
+            await _superHeroiRepository.CadastrarHeroi(heroi);
 
             await _unityOfWork.Commit();
 
@@ -50,11 +52,20 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
             var validador = new CadastroDeSupersValidacao();
             var resultado = validador.Validate(request);
 
-            var heroiCadastrado = await _repository.ExisteHeroiCadastradoPorNomeHeroi(request.NomeHeroi);
-
+            var heroiCadastrado = await _superHeroiRepository.ExisteHeroiCadastradoPorNomeHeroi(request.NomeHeroi);
             if (heroiCadastrado)
             {
                 resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, Mensagens.NOME_HEROI_CADASTRADO));
+            }
+
+            if (request.SuperPoderes.Any())
+            {
+                var countPoderesExistentes = await _superPoderRepository.PoderExisteNoBanco(request.SuperPoderes);
+
+                if (countPoderesExistentes != request.SuperPoderes.Count)
+                {
+                    resultado.Errors.Add(new FluentValidation.Results.ValidationFailure(string.Empty, Mensagens.PODER_NÂO_EXISTENTE));
+                }
             }
 
             if (resultado.IsValid == false)

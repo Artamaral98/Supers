@@ -151,6 +151,15 @@ namespace Supers.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Este poder ainda não existe na base de dados.
+        /// </summary>
+        public static string PODER_NÂO_EXISTENTE {
+            get {
+                return ResourceManager.GetString("PODER_NÂO_EXISTENTE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Escolha ao menos um super poder para o seu herói.
         /// </summary>
         public static string SUPER_PODERES_VAZIO {

@@ -147,6 +147,9 @@
   <data name="PESO_VAZIO" xml:space="preserve">
     <value>O campo "Peso" é obrigatório</value>
   </data>
+  <data name="PODER_NÂO_EXISTENTE" xml:space="preserve">
+    <value>Este poder ainda não existe na base de dados</value>
+  </data>
   <data name="SUPER_PODERES_VAZIO" xml:space="preserve">
     <value>Escolha ao menos um super poder para o seu herói</value>
   </data>
