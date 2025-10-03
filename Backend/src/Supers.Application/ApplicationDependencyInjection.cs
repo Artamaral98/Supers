@@ -6,6 +6,7 @@ using Supers.Application.UseCases.SuperPoderes.ObterTodos;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Application.UseCases.SuperHerois.Obter;
 using Supers.Application.UseCases.SuperHerois.Atualizar;
+using Supers.Application.UseCases.SuperHerois.Excluir;
 
 namespace Supers.Application
 {
@@ -29,6 +30,7 @@ namespace Supers.Application
             services.AddScoped<IObterTodosOsPoderesUseCase, ObterTodosOsPoderesUseCase>();
             services.AddScoped<IObterSuperUseCase, ObterSuperUseCase>();
             services.AddScoped<IAtualizarSuperUseCase, AtualizarSuperUseCase>();
+            services.AddScoped<IExcluirSuperUseCase, ExcluirSuperUseCase>();
         }
     }
 }

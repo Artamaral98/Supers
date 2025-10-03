@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Supers.Application.UseCases.SuperHerois.Atualizar;
 using Supers.Application.UseCases.SuperHerois.Cadastro;
+using Supers.Application.UseCases.SuperHerois.Excluir;
 using Supers.Application.UseCases.SuperHerois.Obter;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Communication.Requests;
@@ -57,6 +58,19 @@ namespace Supers.API.Controllers
         {
             var resultado = await useCase.Executar(id, request);
             return Ok(resultado);
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(SucessoResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Excluir(
+        [FromServices] IExcluirSuperUseCase useCase,
+        [FromRoute] int id)
+        {
+            {
+                var mensagem = await useCase.Executar(id);
+                return Ok(new SucessoResponse { Mensagem = mensagem });
+            }
         }
     }
 }
