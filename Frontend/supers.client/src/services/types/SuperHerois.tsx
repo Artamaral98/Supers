@@ -1,5 +1,3 @@
-import type { SuperPoder } from './SuperPoder';
-
 export interface SuperHeroi {
   id: number;
   nome: string;

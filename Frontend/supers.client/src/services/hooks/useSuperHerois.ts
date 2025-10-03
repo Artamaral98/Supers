@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-hot-toast';
-import { getHerois, createHeroi } from '../superHeroi/SuperHeroiService';
+import { getHerois, createHeroi, updateHeroi, deleteHeroi } from '../superHeroi/SuperHeroiService';
 import type { SuperHeroi } from '../types/SuperHerois';
 import type { NovoHeroi } from '../types/NovoHeroi';
 import { getErrorMessage } from '../../utils/errorUtils';
@@ -44,10 +44,44 @@ export function useSuperHerois() {
     }
   };
 
+  const atualizarHeroi = async (id: number, heroiAtualizado: NovoHeroi) => {
+    try {
+      setIsLoading(true);
+      const response = await updateHeroi(id, heroiAtualizado);
+      toast.success(response.mensagem);
+      await fetchHerois(); // Atualiza a lista na tela
+    } catch (err) {
+      setError(err as Error);
+      const errorMessages = getErrorMessage(err);
+      errorMessages.forEach(message => toast.error(message));
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const excluirHeroi = async (id: number) => {
+    try {
+      setIsLoading(true);
+      const response = await deleteHeroi(id);
+      toast.success(response.mensagem);
+      await fetchHerois(); 
+    } catch (err) {
+      setError(err as Error);
+      const errorMessages = getErrorMessage(err);
+      errorMessages.forEach(message => toast.error(message));
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     herois,
     isLoading,
     error,
     criarHeroi,
+    atualizarHeroi, 
+    excluirHeroi,  
   };
 }

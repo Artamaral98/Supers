@@ -2,30 +2,26 @@ import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import useFocus from "../services/hooks/useFocus";
-import { useSuperpoderes } from "../services/hooks/useSuperpoderes"; // Hook para buscar a lista de poderes
-import { useSuperHerois } from "../services/hooks/useSuperHerois";   // Hook com a lógica do CRUD
+import { useSuperpoderes } from "../services/hooks/useSuperpoderes"; 
+import { useSuperHerois } from "../services/hooks/useSuperHerois";   
 import type { NovoHeroi } from "../services/types/NovoHeroi";
+import { getTodayDateString } from "../utils/dateUtils";
 
 const Home: React.FC = () => {
     const { inputRef } = useFocus();
-
-    // --- LÓGICA DO COMPONENTE ---
-
-    // 1. Buscando os dados necessários
-    const { poderes, isLoading: isLoadingPoderes } = useSuperpoderes(); // Busca a lista de poderes para os checkboxes
-    const { criarHeroi, isLoading: isCreatingHeroi } = useSuperHerois(); // Pega a função de criar e o estado de loading do CRUD
+    const { poderes, isLoading: isLoadingPoderes } = useSuperpoderes();
+    const { criarHeroi, isLoading: isCreatingHeroi } = useSuperHerois(); 
 
     // 2. Estado para o formulário
     const [formData, setFormData] = useState<NovoHeroi>({
         nome: '',
         nomeHeroi: '',
-        dataNascimento: '',
-        altura: 0,
-        peso: 0,
-        superPoderes: [] // Armazena os IDs dos poderes selecionados
+        dataNascimento: getTodayDateString(), 
+        altura: '',
+        peso: '',
+        superPoderes: []
     });
 
-    // 3. Funções para lidar com as mudanças nos inputs
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -38,36 +34,30 @@ const Home: React.FC = () => {
         setFormData(prevState => {
             const poderesAtuais = prevState.superPoderes;
             if (poderesAtuais.includes(poderId)) {
-                // Se já estiver selecionado, remove
                 return { ...prevState, superPoderes: poderesAtuais.filter(id => id !== poderId) };
             } else {
-                // Se não estiver, adiciona
                 return { ...prevState, superPoderes: [...poderesAtuais, poderId] };
             }
         });
     };
 
-    // 4. Função para lidar com o envio do formulário
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            // Converte altura e peso para número antes de enviar
             const dadosParaEnviar = {
                 ...formData,
                 altura: Number(formData.altura) || 0,
                 peso: Number(formData.peso) || 0,
             };
             await criarHeroi(dadosParaEnviar);
-            // Limpa o formulário após o sucesso
             setFormData({
-                nome: '', nomeHeroi: '', dataNascimento: '', altura: 0, peso: 0, superPoderes: []
+                nome: '', nomeHeroi: '', dataNascimento: getTodayDateString(), altura: '', peso: '', superPoderes: []
             });
         } catch (error) {
             console.error("Falha ao criar herói:", error);
         }
     };
 
-    // --- ESTRUTURA JSX (O SEU HTML) ---
     return (
         <div className="flex min-h-screen">
             <Sidebar />
@@ -78,7 +68,6 @@ const Home: React.FC = () => {
 
                 <div className="max-w-5xl p-6 bg-white rounded-lg shadow-md">
                     <form className="space-y-6" onSubmit={handleSubmit}>
-                        {/* Seus inputs de texto, agora conectados ao estado */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label htmlFor="nome" className="block text-sm font-bold mb-2">Nome</label>
@@ -102,7 +91,6 @@ const Home: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Seção de Superpoderes dinâmica */}
                         <div>
                             <h3 className="text-lg font-bold mb-2">Superpoderes</h3>
                             {isLoadingPoderes ? <p>Carregando poderes...</p> : (
@@ -127,7 +115,7 @@ const Home: React.FC = () => {
 
                         <button
                             type="submit"
-                            disabled={isCreatingHeroi} // Desabilita o botão durante o envio
+                            disabled={isCreatingHeroi}
                             className="px-14 py-3 bg-[#DD4B25] text-white rounded-md hover:bg-[#C64422] transition-colors disabled:bg-gray-400"
                         >
                             {isCreatingHeroi ? 'Salvando...' : 'Salvar'}

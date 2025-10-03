@@ -6,7 +6,7 @@
 
         public string NomeHeroi { get; set; } = string.Empty;
 
-        public DateTime DataNascimento { get; set; }
+        public DateTime? DataNascimento { get; set; }
 
         public decimal Altura { get; set; }
 
