@@ -22,7 +22,7 @@ namespace Supers.API.Controllers
         }
 
         [HttpGet("ListarTodos")]
-        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> ListarTodos(
         [FromServices] IObterTodosOsSupersUseCase useCase)
         {

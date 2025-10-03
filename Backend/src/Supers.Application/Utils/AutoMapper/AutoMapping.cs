@@ -15,13 +15,7 @@ namespace Supers.Application.Utils.AutoMapper
 
         private void RequestToDomain()
         {
-            CreateMap<CadastroSuperRequest, SuperHeroi>()
-                .ForMember(dest => dest.HeroisSuperPoderes, opt => opt.MapFrom(src => src.SuperPoderes.Select
-                (poderNome => new HeroiSuperPoder
-                {
-                    SuperPoderes = new SuperPoderes { SuperPoder = poderNome }
-                }).ToList()
-            )); ;
+            CreateMap<CadastroSuperRequest, SuperHeroi>();
         }
 
         private void DomainToResponse()
@@ -33,6 +27,8 @@ namespace Supers.Application.Utils.AutoMapper
                 .Select(hsp => hsp.SuperPoderes.SuperPoder)
                 .ToList()));
 
+            CreateMap<SuperPoderes, SuperPoderResponse>()
+                .ForMember(dest => dest.Nome, opt => opt.MapFrom(src => src.SuperPoder));
         }
     }
 } 

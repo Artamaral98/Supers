@@ -33,6 +33,8 @@ namespace Supers.Infrastructure
         {   
             services.AddScoped<ISuperHeroiRepository, SuperHeroiRepository>();
             services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<ISuperPoderRepository, SuperPoderRepository>();
+            services.AddScoped<IHeroiSuperPoderRepository, HeroiSuperPoderRepository>();
         }
 
         private static void AddFluentMigrator_SqlServer(IServiceCollection services, IConfiguration configuration)

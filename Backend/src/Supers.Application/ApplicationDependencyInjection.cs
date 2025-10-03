@@ -2,6 +2,8 @@
 using Supers.Application.UseCases.SuperHerois.Cadastro;
 using Supers.Application.Utils.AutoMapper;
 using Microsoft.Extensions.Configuration;
+using Supers.Application.UseCases.SuperPoderes.ObterTodos;
+using Supers.Application.UseCases.SuperHerois.ObterTodos;
 
 namespace Supers.Application
 {
@@ -21,6 +23,8 @@ namespace Supers.Application
         private static void AddUseCases(IServiceCollection services)
         {
             services.AddScoped<ICadastroDeSupersUseCase, CadastroDeSupersUseCase>();
+            services.AddScoped<IObterTodosOsSupersUseCase, ObterTodosOsSupersUseCase>();
+            services.AddScoped<IObterTodosOsPoderesUseCase, ObterTodosOsPoderesUseCase>();
         }
     }
 }

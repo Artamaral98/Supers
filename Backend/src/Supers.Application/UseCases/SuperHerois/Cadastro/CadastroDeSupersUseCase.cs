@@ -25,7 +25,19 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
 
             var heroi = _mapper.Map<SuperHeroi>(request);
 
+            if (request.SuperPoderesIds.Any())
+            {
+                foreach (var poderId in request.SuperPoderesIds)
+                {
+                    heroi.HeroisSuperPoderes.Add(new HeroiSuperPoder
+                    {
+                        SuperPoderId = poderId
+                    });
+                }
+            }
+
             await _repository.CadastrarHeroi(heroi);
+
             await _unityOfWork.Commit();
 
             var response = _mapper.Map<CadastroSuperResponse>(heroi);

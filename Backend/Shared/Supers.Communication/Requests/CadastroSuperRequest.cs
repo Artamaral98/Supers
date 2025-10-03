@@ -13,5 +13,7 @@
         public decimal Altura { get; set; }
 
         public decimal Peso { get; set; }
+
+        public List<int> SuperPoderesIds { get; set; } = new List<int>();
     }
 }
