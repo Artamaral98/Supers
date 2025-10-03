@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\Shared\Supers.Communication\Supers.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\Supers.Exceptions\Supers.Exceptions.csproj" />
     <ProjectReference Include="..\Supers.Application\Supers.Application.csproj" />
+    <ProjectReference Include="..\Supers.Infrastructure\Supers.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,19 +11,19 @@ namespace Supers.Infrastructure.Dados.Repositorio
         public SuperHeroiRepository(SupersDbContext dbContext) => _dbContext = dbContext;
 
 
-        public async Task CadastrarHeroi(SuperHeroi heroi) => await _dbContext.AddAsync(heroi);
+        public async Task CadastrarHeroi(SuperHeroi heroi) => await _dbContext.SuperHerois.AddAsync(heroi);
 
         public async Task<List<SuperHeroi>> ObterTodosOsHerois()
         {
-            return await _dbContext.SuperHerois.ToListAsync();
+            return await _dbContext.SuperHerois.Include(h => h.HeroisSuperPoderes).ThenInclude(hsp => hsp.SuperPoderes).ToListAsync();
         }
 
-        public async Task<SuperHeroi> ObterHeroiPorId(long id)
+        public async Task<SuperHeroi> ObterHeroiPorId(int id)
         {
             return await _dbContext.SuperHerois.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task AtualizarHeroiPorId(long id, SuperHeroi heroi)
+        public async Task AtualizarHeroiPorId(int id, SuperHeroi heroi)
         {
             var heroiASerAtualizado = await ObterHeroiPorId(id);
 
@@ -31,7 +31,7 @@ namespace Supers.Infrastructure.Dados.Repositorio
             {
                 heroiASerAtualizado.Nome = heroi.Nome;
                 heroiASerAtualizado.NomeHeroi = heroi.NomeHeroi;
-                heroiASerAtualizado.DataDeNascimento = heroi.DataDeNascimento;
+                heroiASerAtualizado.DataNascimento = heroi.DataNascimento;
                 heroiASerAtualizado.Altura = heroi.Altura;
                 heroiASerAtualizado.Peso = heroi.Peso;
                 heroiASerAtualizado.HeroisSuperPoderes = heroi.HeroisSuperPoderes;
@@ -41,7 +41,7 @@ namespace Supers.Infrastructure.Dados.Repositorio
             }
         }
 
-        public async Task ExcluirHeroiPorId(long id)
+        public async Task ExcluirHeroiPorId(int id)
         {
             var heroiASerExcluido = await ObterHeroiPorId(id);
 

@@ -9,12 +9,17 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Supers.Communication\Supers.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\Supers.Exceptions\Supers.Exceptions.csproj" />
     <ProjectReference Include="..\Supers.Domain\Supers.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\SuperHerois\Obter\" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@
 
         public List<string> SuperPoderes { get; set; } = [];
 
-        public DateTime DataDeDascimento { get; set; }
+        public DateTime DataNascimento { get; set; }
 
         public decimal Altura { get; set; }
 

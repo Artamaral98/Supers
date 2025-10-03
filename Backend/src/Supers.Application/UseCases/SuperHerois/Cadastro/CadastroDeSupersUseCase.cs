@@ -1,26 +1,36 @@
 ﻿using AutoMapper;
 using Supers.Communication.Requests;
 using Supers.Communication.Responses;
+using Supers.Domain.Entidades;
 using Supers.Domain.Repositorios;
 using Supers.Exceptions;
 
 namespace Supers.Application.UseCases.SuperHerois.Cadastro
 {
-    public class CadastroDeSupersUseCase
+    public class CadastroDeSupersUseCase : ICadastroDeSupersUseCase
     {
         private readonly ISuperHeroiRepository _repository;
+        private readonly IMapper _mapper;
+        private readonly IUnityOfWork _unityOfWork;
+
+        public CadastroDeSupersUseCase(ISuperHeroiRepository repository, IMapper mapper, IUnityOfWork unityOfWork)
+        {
+            _repository = repository;
+            _mapper = mapper;
+            _unityOfWork = unityOfWork;
+        }
         public async Task<CadastroSuperResponse> Executar (CadastroSuperRequest request)
         {
-            Validar(request);
+            await Validar(request);
 
-            //Salvar no DB
+            var heroi = _mapper.Map<SuperHeroi>(request);
 
-            var resposta = new CadastroSuperResponse()
-            {
-                Nome = request.Nome
-            };
+            await _repository.CadastrarHeroi(heroi);
+            await _unityOfWork.Commit();
 
-            return resposta;
+            var response = _mapper.Map<CadastroSuperResponse>(heroi);
+
+            return response;
         }
 
         private async Task Validar(CadastroSuperRequest request)

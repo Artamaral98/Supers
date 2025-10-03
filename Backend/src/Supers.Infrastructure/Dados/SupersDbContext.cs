@@ -5,11 +5,14 @@ namespace Supers.Infrastructure.Dados
 {
     public class SupersDbContext : DbContext
     {
+
+        public SupersDbContext(DbContextOptions options) : base(options) { }
+ 
         public DbSet<HeroiSuperPoder> HeroisSuperPoderes { get; set; }
 
         public DbSet<SuperHeroi> SuperHerois { get; set; }
 
-        public DbSet<SuperPoder> SuperPoderes { get; set; }
+        public DbSet<SuperPoderes> SuperPoderes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

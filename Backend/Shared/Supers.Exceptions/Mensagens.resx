@@ -133,13 +133,13 @@
     <value>Já existe um heroi com este nome.</value>
   </data>
   <data name="NOME_HEROI_TAMANHO_MAXIMO" xml:space="preserve">
-    <value>O campo "Nome do herói" deve conter até 25 caracteres</value>
+    <value>O campo "Nome do herói" deve conter até 120 caracteres</value>
   </data>
   <data name="NOME_HEROI_VAZIO" xml:space="preserve">
     <value>O campo "Nome do herói" é obrigatório</value>
   </data>
   <data name="NOME_TAMANHO_MAXIMO" xml:space="preserve">
-    <value>O campo "Nome" deve conter até 25 caracteres</value>
+    <value>O campo "Nome" deve conter até 120 caracteres</value>
   </data>
   <data name="NOME_VAZIO" xml:space="preserve">
     <value>O campo "Nome" é obrigatório</value>

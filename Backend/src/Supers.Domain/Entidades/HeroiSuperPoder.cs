@@ -2,10 +2,10 @@
 {
     public class HeroiSuperPoder
     {
-        public long HeroiId { get; set; }
+        public int HeroiId { get; set; }
         public SuperHeroi Heroi { get; set; }
 
-        public long SuperPoderId { get; set; }
-        public SuperPoder SuperPoder { get; set; }
+        public int SuperPoderId { get; set; }
+        public SuperPoderes SuperPoderes { get; set; }
     }
 }

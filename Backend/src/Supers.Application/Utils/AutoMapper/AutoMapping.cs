@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Supers.Communication.Requests;
+using Supers.Communication.Responses;
 using Supers.Domain.Entidades;
 
 namespace Supers.Application.Utils.AutoMapper
@@ -9,6 +10,7 @@ namespace Supers.Application.Utils.AutoMapper
         public AutoMapping()
         {
             RequestToDomain();
+            DomainToResponse();
         }
 
         private void RequestToDomain()
@@ -17,9 +19,20 @@ namespace Supers.Application.Utils.AutoMapper
                 .ForMember(dest => dest.HeroisSuperPoderes, opt => opt.MapFrom(src => src.SuperPoderes.Select
                 (poderNome => new HeroiSuperPoder
                 {
-                    SuperPoder = new SuperPoder { SuperPoderNome = poderNome }
+                    SuperPoderes = new SuperPoderes { SuperPoder = poderNome }
                 }).ToList()
             )); ;
+        }
+
+        private void DomainToResponse()
+        {
+            CreateMap<SuperHeroi, CadastroSuperResponse>()
+                .ForMember(dest => dest.SuperPoderes, opt => opt.MapFrom(src => src.HeroisSuperPoderes.Select(p => p.SuperPoderes.SuperPoder).ToList()));
+
+            CreateMap<SuperHeroi, SumarioHerois>().ForMember(dest => dest.SuperPoderes,opt => opt.MapFrom(src => src.HeroisSuperPoderes
+                .Select(hsp => hsp.SuperPoderes.SuperPoder)
+                .ToList()));
+
         }
     }
 } 

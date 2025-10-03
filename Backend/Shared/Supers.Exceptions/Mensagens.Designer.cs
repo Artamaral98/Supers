@@ -106,7 +106,7 @@ namespace Supers.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O campo &quot;Nome do herói&quot; deve conter até 25 caracteres.
+        ///   Looks up a localized string similar to O campo &quot;Nome do herói&quot; deve conter até 120 caracteres.
         /// </summary>
         public static string NOME_HEROI_TAMANHO_MAXIMO {
             get {
@@ -124,7 +124,7 @@ namespace Supers.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O campo &quot;Nome&quot; deve conter até 25 caracteres.
+        ///   Looks up a localized string similar to O campo &quot;Nome&quot; deve conter até 120 caracteres.
         /// </summary>
         public static string NOME_TAMANHO_MAXIMO {
             get {
