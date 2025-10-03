@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Supers.Application.UseCases.SuperPoderes.ObterTodos;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Application.UseCases.SuperHerois.Obter;
+using Supers.Application.UseCases.SuperHerois.Atualizar;
 
 namespace Supers.Application
 {
@@ -27,6 +28,7 @@ namespace Supers.Application
             services.AddScoped<IObterTodosOsSupersUseCase, ObterTodosOsSupersUseCase>();
             services.AddScoped<IObterTodosOsPoderesUseCase, ObterTodosOsPoderesUseCase>();
             services.AddScoped<IObterSuperUseCase, ObterSuperUseCase>();
+            services.AddScoped<IAtualizarSuperUseCase, AtualizarSuperUseCase>();
         }
     }
 }

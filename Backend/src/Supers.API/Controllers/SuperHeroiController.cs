@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Supers.Application.UseCases.SuperHerois.Atualizar;
 using Supers.Application.UseCases.SuperHerois.Cadastro;
 using Supers.Application.UseCases.SuperHerois.Obter;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Communication.Requests;
 using Supers.Communication.Responses;
+using Supers.Exceptions;
 
 namespace Supers.API.Controllers
 {
@@ -14,8 +16,8 @@ namespace Supers.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Cadastrar(
-            [FromServices]ICadastroDeSupersUseCase useCase,
-            [FromBody]CadastroSuperRequest request)
+            [FromServices] ICadastroDeSupersUseCase useCase,
+            [FromBody] CadastroSuperRequest request)
         {
             var resultado = await useCase.Executar(request);
 
@@ -42,6 +44,19 @@ namespace Supers.API.Controllers
             var resultado = await useCase.Executar(id);
             return Ok(resultado);
 
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Atualizar(
+        [FromServices] IAtualizarSuperUseCase useCase,
+        [FromRoute] int id,
+        [FromBody] CadastroSuperRequest request)
+        {
+            var resultado = await useCase.Executar(id, request);
+            return Ok(resultado);
         }
     }
 }

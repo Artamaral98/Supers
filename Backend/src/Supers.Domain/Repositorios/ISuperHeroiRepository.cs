@@ -7,8 +7,9 @@ namespace Supers.Domain.Repositorios
         Task CadastrarHeroi(SuperHeroi heroi);
         Task<List<SuperHeroi>> ObterTodosOsHerois();
         Task<SuperHeroi> ObterHeroiPorId(int id);
-        Task AtualizarHeroiPorId(int id, SuperHeroi heroi);
-        Task ExcluirHeroiPorId(int id);
+        void Excluir(SuperHeroi heroi);
         Task<bool> ExisteHeroiCadastradoPorNomeHeroi(string nomeHeroi);
+
+        Task<bool> ExisteOutroHeroiComMesmoNomeEIdDiferente(int id, string nomeHeroi);
     }
 }
