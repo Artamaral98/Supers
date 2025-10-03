@@ -88,6 +88,15 @@ namespace Supers.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Heroi não encontrado.
+        /// </summary>
+        public static string HEROI_NAO_ENCONTRADO {
+            get {
+                return ResourceManager.GetString("HEROI_NAO_ENCONTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Não são permitidos caracteres especiais.
         /// </summary>
         public static string NOME_CARACTERES_ESPECIAIS {

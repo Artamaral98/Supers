@@ -4,6 +4,7 @@ using Supers.Application.Utils.AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Supers.Application.UseCases.SuperPoderes.ObterTodos;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
+using Supers.Application.UseCases.SuperHerois.Obter;
 
 namespace Supers.Application
 {
@@ -25,6 +26,7 @@ namespace Supers.Application
             services.AddScoped<ICadastroDeSupersUseCase, CadastroDeSupersUseCase>();
             services.AddScoped<IObterTodosOsSupersUseCase, ObterTodosOsSupersUseCase>();
             services.AddScoped<IObterTodosOsPoderesUseCase, ObterTodosOsPoderesUseCase>();
+            services.AddScoped<IObterSuperUseCase, ObterSuperUseCase>();
         }
     }
 }

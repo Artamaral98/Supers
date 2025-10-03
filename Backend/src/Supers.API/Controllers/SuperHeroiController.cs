@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Supers.Application.UseCases.SuperHerois.Cadastro;
+using Supers.Application.UseCases.SuperHerois.Obter;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Communication.Requests;
 using Supers.Communication.Responses;
@@ -29,6 +30,18 @@ namespace Supers.API.Controllers
             var resultado = await useCase.Executar();
 
             return Ok(resultado);
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ObterPorId(
+        [FromServices] IObterSuperUseCase useCase,
+        [FromRoute] int id)
+        {
+            var resultado = await useCase.Executar(id);
+            return Ok(resultado);
+
         }
     }
 }

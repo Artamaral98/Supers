@@ -32,6 +32,12 @@ namespace Supers.API.Filtros
                 //ResponseErrorJson é um objeto criado para conter a lista de erros, evitando que seja enviado ao usuário mensagens de erros com dados sigilosos da aplicação.
                 context.Result = new BadRequestObjectResult(new ErrosResponse(exception!.MensagensDeErros));
             }
+
+            else if (context.Exception is NaoEncontradoException naoEncontradoException)
+            {
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                context.Result = new ObjectResult(new ErrosResponse(new List<string> { naoEncontradoException.Message }));
+            }
         }
 
         //Método que será retornado em casos de erros desconhecidos.

@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Supers.Domain\Supers.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\SuperHerois\Obter\" />
-  </ItemGroup>
-
 </Project>
