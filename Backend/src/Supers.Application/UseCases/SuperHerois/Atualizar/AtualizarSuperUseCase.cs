@@ -28,21 +28,21 @@ namespace Supers.Application.UseCases.SuperHerois.Atualizar
         {
             await Validar(id, request);
 
-            var heroiDoBanco = await _superHeroiRepository.ObterHeroiPorId(id);
+            var heroiAntigo = await _superHeroiRepository.ObterHeroiPorId(id);
 
-            if (heroiDoBanco is null)
+            if (heroiAntigo is null)
             {
                 throw new NaoEncontradoException(Mensagens.HEROI_NAO_ENCONTRADO);
             }
 
-            _mapper.Map(request, heroiDoBanco);
+            _mapper.Map(request, heroiAntigo);
 
-            heroiDoBanco.HeroisSuperPoderes.Clear();
+            heroiAntigo.HeroisSuperPoderes.Clear();
             if (request.SuperPoderes.Any())
             {
                 foreach (var poderId in request.SuperPoderes)
                 {
-                    heroiDoBanco.HeroisSuperPoderes.Add(new HeroiSuperPoder
+                    heroiAntigo.HeroisSuperPoderes.Add(new HeroiSuperPoder
                     {
                         SuperPoderId = poderId
                     });
@@ -50,8 +50,9 @@ namespace Supers.Application.UseCases.SuperHerois.Atualizar
             }
 
             await _unityOfWork.Commit();
+            var heroiAtualizado = await _superHeroiRepository.ObterHeroiPorId(id);
 
-            return _mapper.Map<CadastroSuperResponse>(heroiDoBanco);
+            return _mapper.Map<CadastroSuperResponse>(heroiAtualizado);
         }
 
         private async Task Validar(int id, CadastroSuperRequest request)

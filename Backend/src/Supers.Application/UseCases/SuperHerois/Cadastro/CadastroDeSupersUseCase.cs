@@ -42,9 +42,9 @@ namespace Supers.Application.UseCases.SuperHerois.Cadastro
 
             await _unityOfWork.Commit();
 
-            var response = _mapper.Map<CadastroSuperResponse>(heroi);
+            var novoHeroi = await _superHeroiRepository.ObterHeroiPorId(heroi.Id);
 
-            return response;
+            return _mapper.Map<CadastroSuperResponse>(novoHeroi);
         }
 
         private async Task Validar(CadastroSuperRequest request)

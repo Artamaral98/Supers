@@ -6,7 +6,7 @@ using Supers.Application.UseCases.SuperHerois.Obter;
 using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Communication.Requests;
 using Supers.Communication.Responses;
-using Supers.Exceptions;
+using Supers.Communication.Responses.Wrapper;
 
 namespace Supers.API.Controllers
 {
@@ -22,7 +22,13 @@ namespace Supers.API.Controllers
         {
             var resultado = await useCase.Executar(request);
 
-            return Created(string.Empty, resultado);
+            var resposta = new RespostaSucesso<CadastroSuperResponse>
+            {
+                Mensagem = "Herói criado com sucesso.",
+                Dados = resultado
+            };
+
+            return Created(string.Empty, resposta);
         }
 
         [HttpGet("ListarTodos")]
@@ -57,7 +63,13 @@ namespace Supers.API.Controllers
         [FromBody] CadastroSuperRequest request)
         {
             var resultado = await useCase.Executar(id, request);
-            return Ok(resultado);
+
+            var resposta = new RespostaSucesso<CadastroSuperResponse>
+            {
+                Mensagem = "Herói atualizado com sucesso.",
+                Dados = resultado
+            };
+            return Ok(resposta);
         }
 
         [HttpDelete("{id}")]

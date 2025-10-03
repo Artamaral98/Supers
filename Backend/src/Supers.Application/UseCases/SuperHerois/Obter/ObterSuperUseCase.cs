@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Supers.Application.UseCases.SuperHerois.Cadastro;
-using Supers.Communication.Requests;
 using Supers.Communication.Responses;
 using Supers.Domain.Repositorios;
 using Supers.Exceptions;
