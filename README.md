@@ -31,7 +31,7 @@ Application) dentro do useCase-> Após a validação, caso tudo esteja correto, 
 realizada a operação pertinente, e haja a conversação com a base de dados e salvar as alterações.
 
 Instruções para inicialização do projeto: Recomendo a utilização do Visual Studio 2022 para análise. Antes de tudo, cabe salientar que a aplicação utiliza banco de dados SQL server. Dessa forma, antes de inicializar o projeto, insira a Connection String referente ao seu login SQL server
-- - "Connection": "Data Source=NOMEDOSEUSERVIDOR; Initial Catalog=gastosresidenciais;User ID=SEULOGONDOSQLSERVER;Password=SUASENHA;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"
+- - "Connection": "Data Source=NOMEDOSEUSERVIDOR; Initial Catalog=SuperHerois;User ID=SEULOGONDOSQLSERVER;Password=SUASENHA;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;"
 - A ConnectionString deverá sem implementada em "Connection": "". Você encontrará no diretório: Backend/src/Supers.API/appsettings/appsettings.Development
 - - Não é necessária a criação manual do servidor/schema, apenas insira suas credenciais de login SQL SERVER e inicialize o projeto.
 
