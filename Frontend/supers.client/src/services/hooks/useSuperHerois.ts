@@ -47,9 +47,9 @@ export function useSuperHerois() {
   const atualizarHeroi = async (id: number, heroiAtualizado: NovoHeroi) => {
     try {
       setIsLoading(true);
-      const response = await updateHeroi(id, heroiAtualizado);
-      toast.success(response.mensagem);
-      await fetchHerois(); // Atualiza a lista na tela
+      await updateHeroi(id, heroiAtualizado);
+      toast.success('Herói atualizado com sucesso!');
+      await fetchHerois(); 
     } catch (err) {
       setError(err as Error);
       const errorMessages = getErrorMessage(err);

@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using FluentAssertions;
 using Moq;
-using Supers.Application.UseCases.SuperHerois.Atualizar;
 using Supers.Application.UseCases.SuperHerois.Cadastro;
 using Supers.Application.UseCases.SuperHerois.Excluir;
 using Supers.Application.UseCases.SuperHerois.Obter;
-using Supers.Application.UseCases.SuperHerois.ObterTodos;
 using Supers.Communication.Responses;
 using Supers.Domain.Entidades;
 using Supers.Domain.Repositorios;

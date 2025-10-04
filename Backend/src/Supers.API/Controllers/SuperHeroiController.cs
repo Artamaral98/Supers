@@ -12,9 +12,9 @@ namespace Supers.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SuperHeroiController : ControllerBase
+    public class SuperHeroiController : SuperHeroiControllerBase
     {
-        [HttpPost]
+        [HttpPost("Cadastro")]
         [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Cadastrar(
             [FromServices] ICadastroDeSupersUseCase useCase,
@@ -32,16 +32,16 @@ namespace Supers.API.Controllers
         }
 
         [HttpGet("ListarTodos")]
-        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RespostaSucesso<List<SumarioHerois>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> ListarTodos(
         [FromServices] IObterTodosOsSupersUseCase useCase)
         {
             var resultado = await useCase.Executar();
 
-            return Ok(resultado);
+            return CriarRespostaDeSucesso(resultado.Herois);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Obter/{id}")]
         [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ObterPorId(
@@ -53,36 +53,30 @@ namespace Supers.API.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        [ProducesResponseType(typeof(CadastroSuperResponse), StatusCodes.Status200OK)]
+        [HttpPut("Atualizar/{id}")]
+        [ProducesResponseType(typeof(RespostaSucesso<CadastroSuperResponse>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Atualizar(
-        [FromServices] IAtualizarSuperUseCase useCase,
-        [FromRoute] int id,
-        [FromBody] CadastroSuperRequest request)
+            [FromServices] IAtualizarSuperUseCase useCase,
+            [FromRoute] int id,
+            [FromBody] CadastroSuperRequest request)
         {
             var resultado = await useCase.Executar(id, request);
 
-            var resposta = new RespostaSucesso<CadastroSuperResponse>
-            {
-                Mensagem = "Herói atualizado com sucesso.",
-                Dados = resultado
-            };
-            return Ok(resposta);
+            return CriarRespostaDeSucesso(resultado);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Excluir/{id}")]
         [ProducesResponseType(typeof(SucessoResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrosResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Excluir(
-        [FromServices] IExcluirSuperUseCase useCase,
-        [FromRoute] int id)
+            [FromServices] IExcluirSuperUseCase useCase,
+            [FromRoute] int id)
         {
-            {
-                var mensagem = await useCase.Executar(id);
-                return Ok(new SucessoResponse { Mensagem = mensagem });
-            }
+            var mensagem = await useCase.Executar(id);
+
+            return CriarRespostaDeSucesso(mensagem);
         }
     }
 }
