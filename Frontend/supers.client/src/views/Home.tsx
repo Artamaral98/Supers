@@ -22,13 +22,24 @@ const Home: React.FC = () => {
         superPoderes: []
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === 'nome' || name === 'nomeHeroi') {
+        const regex = /^[a-zA-ZÀ-ÿ\s0-9]*$/; 
+
+        if (regex.test(value)) {
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value
+            }));
+        }
+    } else {
         setFormData(prevState => ({
             ...prevState,
             [name]: value
         }));
-    };
+    }
+};
 
     const handleCheckboxChange = (poderId: number) => {
         setFormData(prevState => {
