@@ -18,8 +18,8 @@ se todos os elementos da requisição estão válidos, caso contrário retorna u
 Infrastructure: Implementa os códigos que executam serviços externos a API, como Banco de Dados. A implementação do EntityFramework, criação das tabelas, migrations e conexão com SQL Server estão presentes neste projeto. Os métodos
 responsáveis por criar, deletar, atualizar e listar (repositórios) estão presentes neste projeto.
 
-Domain: Uma das ideias chave do DDD é criar uma linguagem comum a todos os envolvidos no projeto. Então todas as propriedades que compoem as entidades usuário ou transações estarão presentes neste 
-projeto. Ex: nome, idade. Além disso, neste projeto estão situados as interfaces (contratos), que definem os métodos implementados em Infrastructure. Essa interface será recebida pelo projeto de 
+Domain: Uma das ideias chave do DDD é criar uma linguagem comum a todos os envolvidos no projeto. Então todas as propriedades que compoem as referentes a herois, superpoderes e HeroisSuperPoderes, usado como conexão entre as duas entidades, estarão presentes neste 
+projeto. Além disso, neste projeto estão situados as interfaces (contratos), que definem os métodos implementados em Infrastructure. Essa interface será recebida pelo projeto de 
 Application, para implementar os métodos, separando as regras de negócio dos dados propriamente ditos, contidos em Infrastructure. Para isso, é utilizada a Injeção de dependência.
 
 Exception: Projeto responsável por conter a base das exceções que serão tratadas e enviadas como resposta, além das mensagens de erros customizadas para cada caso.
